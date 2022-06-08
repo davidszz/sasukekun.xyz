@@ -52,6 +52,7 @@
     ],
     "no-confusing-arrow": "off",
     "object-curly-newline": "off",
+    "operator-linebreak": "off",
     "prettier/prettier": "error",
     "react/jsx-filename-extension": ["error", { "extensions": [".ts", ".tsx"] }],
     "react/jsx-no-bind": "off",

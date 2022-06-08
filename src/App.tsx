@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components';
 
 import Contact from './pages/Contact';
 import Home from './pages/Home';
+import Repositories from './pages/Repositories';
 import WhatIUse from './pages/WhatIUse';
 
 import { ContentWrapper } from './components/common/ContentWrapper';
@@ -28,6 +29,7 @@ function App() {
               <Route index element={<Home />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/what" element={<WhatIUse />} />
+              <Route path="/repos" element={<Repositories />} />
             </Routes>
           </ContentWrapper>
         </Wrapper>

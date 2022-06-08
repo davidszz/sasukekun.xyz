@@ -102,6 +102,10 @@ export function Nav() {
             what I use
             {pathname === '/what' && <ActiveIcon />}
           </Page>
+          <Page to="/repos" active={pathname === '/repos' ? 1 : 0}>
+            repositories
+            {pathname === '/repos' && <ActiveIcon />}
+          </Page>
           <Page to="/contact" active={pathname === '/contact' ? 1 : 0}>
             contact
             {pathname === '/contact' && <ActiveIcon />}
