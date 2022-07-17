@@ -9,10 +9,10 @@ export function Wrapper({ children }: PropsWithChildren) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (soundData.sound && !playing && videoRef.current) {
+    if (soundData.sound && !playing) {
       setPlaying(true);
       play();
-      (document.getElementById('bg-video') as HTMLVideoElement)?.play();
+      videoRef.current?.play();
     }
   }, [soundData.sound, playing, videoRef.current]);
 
@@ -24,7 +24,11 @@ export function Wrapper({ children }: PropsWithChildren) {
         id="bg-video"
         className="fixed w-full h-screen aspect object-cover"
         muted
+        onPlay={() => {
+          play();
+        }}
         onEnded={() => {
+          soundData?.stop();
           setPlaying(false);
         }}
       >
