@@ -16,7 +16,6 @@ export default function App() {
           userId={data.discord_user.id.toString()}
           discriminator={data.discord_user.discriminator}
           username={data.discord_user.username}
-          status={data.discord_status}
         />
       )}
       <Credits />
