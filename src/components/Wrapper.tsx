@@ -1,19 +1,28 @@
 import { PropsWithChildren, useEffect, useRef, useState } from 'react';
 import useSound from 'use-sound';
 
-import bgVideo from '../assets/bg.mp4';
+import bgAudio from '../assets/bg-audio.mp3';
+import bgVideo from '../assets/bg-video.mp4';
 
 export function Wrapper({ children }: PropsWithChildren) {
-  const [play, soundData] = useSound(bgVideo);
+  const [play, soundData] = useSound(bgAudio, { volume: 0.2 });
   const [playing, setPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (soundData.sound && !playing) {
-      setPlaying(true);
-      play();
-      videoRef.current?.play();
+    function onClick() {
+      if (soundData.sound && !playing) {
+        setPlaying(true);
+        videoRef.current?.play();
+        play();
+        document.removeEventListener('click', onClick);
+      }
     }
+
+    document.addEventListener('click', onClick);
+    return () => {
+      document.removeEventListener('click', onClick);
+    };
   }, [soundData.sound, playing, videoRef.current]);
 
   return (
@@ -24,12 +33,10 @@ export function Wrapper({ children }: PropsWithChildren) {
         id="bg-video"
         className="fixed w-full h-screen aspect object-cover"
         muted
-        onPlay={() => {
-          play();
-        }}
         onEnded={() => {
-          soundData?.stop();
-          setPlaying(false);
+          videoRef.current?.play();
+          play();
+          setPlaying(true);
         }}
       >
         <source src={bgVideo} />

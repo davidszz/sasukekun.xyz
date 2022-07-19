@@ -24,17 +24,21 @@ export function Card({ userId, username, discriminator, avatar, bannerUrl }: Pro
   return (
     <animated.div
       onMouseMove={({ clientX: x, clientY: y }: { clientX: number; clientY: number }) =>
-        set({ xys: [-(y - window.innerHeight / 2) / 35, (x - window.innerWidth / 2) / 35, 1] })
+        set(
+          window.innerWidth >= 640
+            ? { xys: [-(y - window.innerHeight / 2) / 35, (x - window.innerWidth / 2) / 35, 1] }
+            : { xys: [0, 0, 1] }
+        )
       }
       onMouseLeave={() => set({ xys: [0, 0, 1] })}
       style={{
         // eslint-disable-next-line react/prop-types
         transform: props.xys.to((x, y) => `perspective(600px) rotateX(${x}deg) rotateY(${y}deg)`),
       }}
-      className="flex flex-col z-10 w-[calc(100vw-16px)] sm:w-96 mx-auto"
+      className="flex flex-col z-10 w-full h-screen sm:w-96 sm:h-auto mx-auto"
     >
       <div
-        className="bg-center bg-no-repeat bg-cover h-48 rounded shadow-gray-800"
+        className="bg-center bg-no-repeat bg-cover h-48 sm:rounded shadow-gray-800"
         style={{
           backgroundImage: `url(${
             bannerUrl ??
@@ -57,12 +61,12 @@ export function Card({ userId, username, discriminator, avatar, bannerUrl }: Pro
           className="mx-auto rounded-full -mt-14 shadow-md"
         />
       </div>
-      <div className="p-4 pt-16 -mt-14 w-full rounded drop-shadow-md backdrop-blur-lg bg-[rgba(0,0,0,.4)]">
+      <div className="p-4 pt-16 -mt-14 w-full h-full sm:h-auto sm:rounded drop-shadow-md backdrop-blur-lg bg-[rgba(0,0,0,.4)]">
         <div className="flex items-center justify-center leading-relaxed">
           <strong className="text-xl text-white font-sans text-center">{username}</strong>
           <span className="text-lg text-gray-300 ml-1">#{discriminator}</span>
         </div>
-        <div className="flex items-center justify-around mt-8 text-white">
+        <div className="flex items-center flex-wrap justify-around mt-8 text-white gap-4 sm:gap-0">
           <a
             href="https://instagram.com/david.kns"
             target="_blank"
