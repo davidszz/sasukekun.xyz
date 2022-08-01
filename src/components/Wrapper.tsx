@@ -13,7 +13,10 @@ export function Wrapper({ children }: PropsWithChildren) {
           text="Tap to continue"
           onSkip={() => {
             setStarted(true);
-            videoRef.current?.play();
+            if (videoRef.current) {
+              videoRef.current.volume = 0.4;
+              videoRef.current.play();
+            }
           }}
           skipped={started}
         />
