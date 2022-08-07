@@ -7,15 +7,27 @@ import {
 } from 'phosphor-react';
 import { animated, useSpring } from 'react-spring';
 
-interface Props {
-  userId: string;
-  bannerUrl?: string;
-  avatar?: string;
-  username: string;
-  discriminator: string;
+function SocialLink({ href, IconComponent }: { href: string; IconComponent: typeof TwitterLogo }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="p-2 rounded-full hover:text-black hover:bg-[rgba(255,0,0,.2)] transition-colors"
+    >
+      <IconComponent size={26} weight="light" />
+    </a>
+  );
 }
 
-export function Card({ userId, username, discriminator, avatar, bannerUrl }: Props) {
+interface Props {
+  username: string;
+  discriminator: string;
+  avatar: string;
+  banner: string;
+}
+
+export function Card({ username, discriminator, avatar, banner }: Props) {
   const [props, set] = useSpring(() => ({
     xys: [0, 0, 1],
     config: { mass: 2, tension: 350, friction: 40 },
@@ -40,21 +52,12 @@ export function Card({ userId, username, discriminator, avatar, bannerUrl }: Pro
       <div
         className="bg-center bg-no-repeat bg-cover h-48 sm:rounded shadow-gray-800"
         style={{
-          backgroundImage: `url(${
-            bannerUrl ??
-            'https://i.pinimg.com/originals/d4/0d/57/d40d57c9adde851e8f82f7443c73be56.gif'
-          })`,
+          backgroundImage: `url(${banner})`,
         }}
       />
       <div className="z-10">
         <img
-          src={
-            avatar
-              ? `https://cdn.discordapp.com/avatars/${userId}/${avatar}.${
-                  avatar.startsWith('a_') ? 'gif' : 'webp'
-                }?size=256`
-              : 'https://github.com/davidszz.png'
-          }
+          src={avatar}
           alt="Avatar"
           width="128px"
           height="128px"
@@ -67,46 +70,17 @@ export function Card({ userId, username, discriminator, avatar, bannerUrl }: Pro
           <span className="text-lg text-gray-300 ml-1">#{discriminator}</span>
         </div>
         <div className="flex items-center flex-wrap justify-around mt-8 text-white gap-4 sm:gap-0">
-          <a
-            href="https://instagram.com/david.kns"
-            target="_blank"
-            rel="noreferrer"
-            className="p-2 rounded-full hover:text-black hover:bg-[rgba(255,0,0,.2)] transition-colors"
-          >
-            <InstagramLogo size={26} weight="light" />
-          </a>
-          <a
-            href="https://pinterest.com/sasukinsz"
-            target="_blank"
-            rel="noreferrer"
-            className="p-2 rounded-full hover:text-black hover:bg-[rgba(255,0,0,.2)] transition-colors"
-          >
-            <PinterestLogo size={26} weight="light" />
-          </a>
-          <a
+          <SocialLink href="https://instagram.com/david.kns" IconComponent={InstagramLogo} />
+          <SocialLink href="https://pinterest.com/sasukinsz" IconComponent={PinterestLogo} />
+          <SocialLink
             href="https://discord.com/users/757379507358531675"
-            target="_blank"
-            rel="noreferrer"
-            className="p-2 rounded-full hover:text-black hover:bg-[rgba(255,0,0,.2)] transition-colors"
-          >
-            <DiscordLogo size={26} weight="light" />
-          </a>
-          <a
-            href="https://twitter.com/sasukinsz"
-            target="_blank"
-            rel="noreferrer"
-            className="p-2 rounded-full hover:text-black hover:bg-[rgba(255,0,0,.2)] transition-colors"
-          >
-            <TwitterLogo size={26} weight="light" />
-          </a>
-          <a
+            IconComponent={DiscordLogo}
+          />
+          <SocialLink href="https://twitter.com/sasukinsz" IconComponent={TwitterLogo} />
+          <SocialLink
             href="https://open.spotify.com/user/316n2inp34e7p6s4lvk5r2rhlhxa?si=b65279ae0a784830"
-            target="_blank"
-            className="p-2 rounded-full hover:text-black hover:bg-[rgba(255,0,0,.2)] transition-colors"
-            rel="noreferrer"
-          >
-            <SpotifyLogo size={26} weight="light" />
-          </a>
+            IconComponent={SpotifyLogo}
+          />
         </div>
       </div>
     </animated.div>

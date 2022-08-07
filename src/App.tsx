@@ -1,24 +1,32 @@
+import { useMemo } from 'react';
 import { useLanyardWs } from 'use-lanyard';
 
 import { Card } from './components/Card';
-import { Credits } from './components/Credits';
+import { Spotify } from './components/Spotify';
 import { Wrapper } from './components/Wrapper';
 
 export default function App() {
   const data = useLanyardWs('757379507358531675');
 
+  const user = useMemo(() => data?.discord_user, [data]);
+  const banner = data?.kv.banner_url ?? '/banner.gif';
+  const avatar = user?.avatar
+    ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${
+        user.avatar.startsWith('a_') ? 'gif' : 'png'
+      }?size=256`
+    : 'https://cdn.discordapp.com/embed/avatars/5.png';
+
   return (
     <Wrapper>
-      {data && (
+      {user && (
         <Card
-          avatar={data.discord_user.avatar}
-          bannerUrl={data.kv.banner_url}
-          userId={data.discord_user.id.toString()}
-          discriminator={data.discord_user.discriminator}
-          username={data.discord_user.username}
+          avatar={avatar}
+          banner={banner}
+          discriminator={user.discriminator}
+          username={user.username}
         />
       )}
-      <Credits />
+      {data?.spotify && <Spotify data={data.spotify} />}
     </Wrapper>
   );
 }
