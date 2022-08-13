@@ -1,5 +1,6 @@
 import {
   DiscordLogo,
+  GameController,
   InstagramLogo,
   PinterestLogo,
   SpotifyLogo,
@@ -25,9 +26,13 @@ interface Props {
   discriminator: string;
   avatar: string;
   banner: string;
+  playing?: {
+    name: string;
+    icon?: string;
+  };
 }
 
-export function Card({ username, discriminator, avatar, banner }: Props) {
+export function Card({ username, discriminator, avatar, banner, playing }: Props) {
   const [props, set] = useSpring(() => ({
     xys: [0, 0, 1],
     config: { mass: 2, tension: 350, friction: 40 },
@@ -83,6 +88,27 @@ export function Card({ username, discriminator, avatar, banner }: Props) {
           />
         </div>
       </div>
+      {playing && (
+        <div className="p-4 mt-1 w-full h-full sm:h-auto sm:rounded drop-shadow-md backdrop-blur-lg bg-[rgba(0,0,0,.4)] flex items-center gap-2 flex-nowrap overflow-hidden">
+          {playing.icon ? (
+            <img
+              src={playing.icon}
+              alt="Playing icon"
+              width="22px"
+              height="22px"
+              className="rounded"
+            />
+          ) : (
+            <GameController weight="light" size={18} />
+          )}
+          <span
+            title={`Jogando: ${playing.name}`}
+            className="text-ellipsis whitespace-nowrap overflow-hidden text-sm font-semibold"
+          >
+            {playing.name} dasd adsad sd asdasdas dasdasdasdassds
+          </span>
+        </div>
+      )}
     </animated.div>
   );
 }
