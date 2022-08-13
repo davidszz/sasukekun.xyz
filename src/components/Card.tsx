@@ -105,7 +105,7 @@ export function Card({ username, discriminator, avatar, banner, playing }: Props
             title={`Jogando: ${playing.name}`}
             className="text-ellipsis whitespace-nowrap overflow-hidden text-sm font-semibold"
           >
-            {playing.name} dasd adsad sd asdasdas dasdasdasdassds
+            {playing.name}
           </span>
         </div>
       )}
