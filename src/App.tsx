@@ -19,12 +19,19 @@ export default function App() {
   const playing = useMemo(() => {
     const game = data?.activities.filter((x) => x.type === 0)[0];
     if (game) {
+      const mpToUrl = (url: string) => {
+        if (url.startsWith('mp:external/')) {
+          return `https://media.discordapp.net/external/${url.replace('mp:external/', '')}`;
+        }
+        return `https://cdn.discordapp.com/app-icons/${game.application_id}/${url}`;
+      };
+
       return {
         name: game.name,
         icon:
           game.application_id &&
           (game.assets?.large_image
-            ? `https://cdn.discordapp.com/app-icons/${game.application_id}/${game.assets.large_image}`
+            ? mpToUrl(game.assets.large_image)
             : `https://dcdn.dstn.to/app-icons/${game.application_id}`),
       };
     }
