@@ -46,6 +46,7 @@ export default function App() {
           banner={banner}
           discriminator={user.discriminator}
           username={user.username}
+          listening={!!data?.spotify}
           playing={playing}
         />
       )}

@@ -26,13 +26,14 @@ interface Props {
   discriminator: string;
   avatar: string;
   banner: string;
+  listening?: boolean;
   playing?: {
     name: string;
     icon?: string;
   };
 }
 
-export function Card({ username, discriminator, avatar, banner, playing }: Props) {
+export function Card({ username, discriminator, avatar, banner, listening, playing }: Props) {
   const [props, set] = useSpring(() => ({
     xys: [0, 0, 1],
     config: { mass: 2, tension: 350, friction: 40 },
@@ -52,7 +53,7 @@ export function Card({ username, discriminator, avatar, banner, playing }: Props
         // eslint-disable-next-line react/prop-types
         transform: props.xys.to((x, y) => `perspective(600px) rotateX(${x}deg) rotateY(${y}deg)`),
       }}
-      className="flex flex-col z-10 w-full h-screen sm:w-96 sm:h-auto mx-auto"
+      className="flex flex-col z-10 w-full h-full mb-1 sm:mb-0 sm:w-96 sm:h-auto mx-auto"
     >
       <div
         className="bg-center bg-no-repeat bg-cover h-48 sm:rounded shadow-gray-800"
@@ -60,14 +61,19 @@ export function Card({ username, discriminator, avatar, banner, playing }: Props
           backgroundImage: `url(${banner})`,
         }}
       />
-      <div className="z-10">
-        <img
-          src={avatar}
-          alt="Avatar"
-          width="128px"
-          height="128px"
-          className="mx-auto rounded-full -mt-14 shadow-md"
-        />
+      <div className="z-10 relative">
+        <div className="mx-auto flex justify-center items-center relative -mt-14">
+          <img
+            src={avatar}
+            alt="Avatar"
+            width="128px"
+            height="128px"
+            className="rounded-full shadow-md z-20"
+          />
+          {listening && (
+            <div className="absolute rounded-full h-24 w-24 bg-green-500 animate-ping" />
+          )}
+        </div>
       </div>
       <div className="p-4 pt-16 -mt-14 w-full h-full sm:h-auto sm:rounded drop-shadow-md backdrop-blur-lg bg-[rgba(0,0,0,.4)]">
         <div className="flex items-center justify-center leading-relaxed">
@@ -89,7 +95,7 @@ export function Card({ username, discriminator, avatar, banner, playing }: Props
         </div>
       </div>
       {playing && (
-        <div className="p-4 mt-1 w-full h-full sm:h-auto sm:rounded drop-shadow-md backdrop-blur-lg bg-[rgba(0,0,0,.4)] flex items-center gap-2 flex-nowrap overflow-hidden">
+        <div className="p-4 mt-1 w-full sm:h-auto sm:rounded drop-shadow-md backdrop-blur-lg bg-[rgba(0,0,0,.4)] flex items-center gap-2 flex-nowrap overflow-hidden">
           {playing.icon ? (
             <img
               src={playing.icon}

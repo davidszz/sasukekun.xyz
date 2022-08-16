@@ -6,7 +6,7 @@ interface Props {
 
 export function Spotify({ data }: Props) {
   return (
-    <div className="w-full z-10 fixed bottom-0 overflow-hidden flex items-center p-4 bg-[rgba(0,0,0,.4)] sm:rounded sm:bottom-4 sm:w-72 sm:right-4">
+    <div className="w-full z-10 bottom-0 overflow-hidden flex items-center p-4 bg-[rgba(0,0,0,.4)] sm:fixed sm:rounded sm:bottom-4 sm:w-72 sm:right-4">
       <img
         className="rounded mr-4"
         src={data.album_art_url}
