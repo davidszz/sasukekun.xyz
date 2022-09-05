@@ -81,13 +81,13 @@ export function Card({ username, discriminator, avatar, banner, listening, playi
           <span className="text-lg text-gray-300 ml-1">#{discriminator}</span>
         </div>
         <div className="flex items-center flex-wrap justify-around mt-8 text-white gap-4 sm:gap-0">
-          <SocialLink href="https://instagram.com/david.kns" IconComponent={InstagramLogo} />
+          <SocialLink href="https://instagram.com/david.icream" IconComponent={InstagramLogo} />
           <SocialLink href="https://pinterest.com/sasukinsz" IconComponent={PinterestLogo} />
           <SocialLink
             href="https://discord.com/users/757379507358531675"
             IconComponent={DiscordLogo}
           />
-          <SocialLink href="https://twitter.com/sasukinsz" IconComponent={TwitterLogo} />
+          <SocialLink href="https://twitter.com/sasukezinsz" IconComponent={TwitterLogo} />
           <SocialLink
             href="https://open.spotify.com/user/316n2inp34e7p6s4lvk5r2rhlhxa?si=b65279ae0a784830"
             IconComponent={SpotifyLogo}
